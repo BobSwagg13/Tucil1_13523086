@@ -25,7 +25,8 @@ public class functions {
         }
     }
 
-    public static void printBoard(char[][] board) {
+    public static String printBoard(char[][] board) {
+        StringBuilder result = new StringBuilder();
         String RESET = "\033[0m"; 
         String[] COLORS = { 
             "\033[31m", 
@@ -43,17 +44,17 @@ public class functions {
             "\033[95m", 
             "\033[96m", 
             "\033[97m", 
-            "\033[38;5;208m", 
-            "\033[38;5;130m", 
-            "\033[38;5;27m",  
-            "\033[38;5;82m",  
-            "\033[38;5;226m", 
-            "\033[38;5;201m", 
-            "\033[38;5;51m",  
-            "\033[38;5;202m", 
-            "\033[38;5;118m", 
-            "\033[38;5;129m", 
-            "\033[38;5;190m"  
+            "\033[1;3;31m",  
+            "\033[1;3;32m", 
+            "\033[1;3;33m", 
+            "\033[1;3;34m",  
+            "\033[1;3;35m",  
+            "\033[1;3;36m",  
+            "\033[1;3;37m", 
+            "\033[1;3;90m",  
+            "\033[1;3;91m", 
+            "\033[1;3;92m",  
+            "\033[1;3;93m"  
         };
     
         for (int i = 0; i < board.length; i++) {
@@ -61,15 +62,19 @@ public class functions {
                 char piece = board[i][j];
 
                 if (piece == ' ' || piece == '.') {
-                    System.out.print(RESET + piece); 
+                    System.out.print(RESET + ' ');
+                    result.append(' '); 
                 } 
                 else {
                     int colorIndex = (piece - 'A') % COLORS.length; 
                     System.out.print(COLORS[colorIndex] + piece + RESET); 
+                    result.append(piece);
                 }
             }
+            result.append('\n');
             System.out.println();
         }
+        return result.toString();
     }
     
 
@@ -177,44 +182,6 @@ public class functions {
         return false;
     }
     
-    
-
-    public static boolean checkFit(ArrayList<ArrayList<ArrayList<Integer>>> pieces, char[][] board, ArrayList<Boolean> isUsed, int indexX, int indexY){
-        for(int i = 0; i < pieces.size(); i++){
-            if(isUsed.get(i)){
-                continue;
-            }
-            for(int j = 0; j < pieces.get(i).size(); j++){
-                setPivot(pieces.get(i), j);
-                for(int k = 0; k < 4; k++){
-                    if(isFit(pieces.get(i), board, indexX, indexY)){
-                        for(int l = 0; l < pieces.get(i).size(); l++){
-                            int x = pieces.get(i).get(l).get(0);
-                            int y = pieces.get(i).get(l).get(1);
-                            board[x + indexX][y + indexY] = (char) (i + 'A');
-                        }
-                        isUsed.set(i, true);
-                        return true;
-                    }
-                    rotate(pieces.get(i));
-                }
-                mirror(pieces.get(i));
-                for(int k = 0; k < 4; k++){
-                    if(isFit(pieces.get(i), board, indexX, indexY)){
-                        for(int l = 0; l < pieces.get(i).size(); l++){
-                            int x = pieces.get(i).get(l).get(0);
-                            int y = pieces.get(i).get(l).get(1);
-                            board[x + indexX][y + indexY] = (char) (i + 'A');
-                        }
-                        isUsed.set(i, true);
-                        return true;
-                    }
-                    rotate(pieces.get(i));
-                }
-            }
-        }
-        return false;
-    }
     public static void mirror(ArrayList<ArrayList<Integer>> coordinates) {
         for (int i = 0; i < coordinates.size(); i++) {
             int x = coordinates.get(i).get(0);
@@ -231,12 +198,7 @@ public class functions {
         }
     }
 
-    public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your path name: ");
-        String pathName = scanner.nextLine();
-        scanner.close();
-
+    public static String puzzleSolver (String pathName, int[] totalSteps, int[] runtime){
         long startTime = System.nanoTime();
         ArrayList<ArrayList<ArrayList<Integer>>> pieces = new ArrayList<>();
         ArrayList<ArrayList<Integer>> currentPiece = new ArrayList<>();
@@ -356,15 +318,19 @@ public class functions {
         boolean solved = solvePuzzle(pieces, board, isUsed, 0, 0, steps);
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1_000_000;;
+        totalSteps[0] = steps.get();
+        runtime[0] = (int) duration;
         if(solved)  {
-            printBoard(board);
             System.out.println("Banyak kasus yang ditinjau: " + steps);
             System.out.println("Waktu pencarian: " + duration + " ms");
+            return printBoard(board);
         } 
         else{
             System.out.println("No solution found.");
             System.out.println("Banyak kasus yang ditinjau: " + steps);
             System.out.println("Waktu pencarian: " + duration + " ms");
+            return "No solution found.";
+            
         }
     }
 }
