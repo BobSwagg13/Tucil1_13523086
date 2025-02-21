@@ -126,13 +126,13 @@ public class functions {
         return true;
     }
     
-    public static boolean solvePuzzle(ArrayList<ArrayList<ArrayList<Integer>>> pieces, char[][] board, ArrayList<Boolean> isUsed, int row, int col, AtomicInteger steps) {
+    public static boolean solvePuzzle(ArrayList<Character> characters, ArrayList<ArrayList<ArrayList<Integer>>> pieces, char[][] board, ArrayList<Boolean> isUsed, int row, int col, AtomicInteger steps) {
         if (areAllUsed(isUsed)) return isBoardFull(board); 
         if (row >= board.length) return false; 
         int nextRow = (col + 1 == board[0].length) ? row + 1 : row;
         int nextCol = (col + 1) % board[0].length;
     
-        if (board[row][col] != ' ') return solvePuzzle(pieces, board, isUsed, nextRow, nextCol,steps);
+        if (board[row][col] != ' ') return solvePuzzle(characters, pieces, board, isUsed, nextRow, nextCol,steps);
     
         boolean foundValidPlacement = false; 
         for (int i = 0; i < pieces.size(); i++) {
@@ -146,13 +146,13 @@ public class functions {
                 for (int rotation = 0; rotation < 4; rotation++) {
                     rotate(piece);
     
-                    if (tryPlace(pieces, piece, board, isUsed, row, col, i, steps)) {
+                    if (tryPlace(characters, pieces, piece, board, isUsed, row, col, i, steps)) {
                         foundValidPlacement = true;
                         return true;
                     }
     
                     mirror(piece);
-                    if (tryPlace(pieces, piece, board, isUsed, row, col, i, steps)) {
+                    if (tryPlace(characters, pieces, piece, board, isUsed, row, col, i, steps)) {
                         foundValidPlacement = true;
                         return true;
                     }
@@ -165,16 +165,16 @@ public class functions {
     }
     
 
-    public static boolean tryPlace(ArrayList<ArrayList<ArrayList<Integer>>> pieces, ArrayList<ArrayList<Integer>> piece, char[][] board, ArrayList<Boolean> isUsed, int row, int col, int pieceIndex, AtomicInteger steps) {
+    public static boolean tryPlace(ArrayList<Character> characters, ArrayList<ArrayList<ArrayList<Integer>>> pieces, ArrayList<ArrayList<Integer>> piece, char[][] board, ArrayList<Boolean> isUsed, int row, int col, int pieceIndex, AtomicInteger steps) {
         steps.incrementAndGet();
         if (isFit(piece, board, row, col)) {
-            placePiece(piece, board, row, col, (char) (pieceIndex + 'A'));
+            placePiece(piece, board, row, col, characters.get(pieceIndex));
             isUsed.set(pieceIndex, true);
             
             int nextRow = (col + 1 == board[0].length) ? row + 1 : row;
             int nextCol = (col + 1) % board[0].length;
     
-            if (solvePuzzle(pieces, board, isUsed, nextRow, nextCol, steps)) return true;
+            if (solvePuzzle(characters, pieces, board, isUsed, nextRow, nextCol, steps)) return true;
     
             removePiece(piece, board, row, col);
             isUsed.set(pieceIndex, false);
@@ -204,6 +204,7 @@ public class functions {
         ArrayList<ArrayList<Integer>> currentPiece = new ArrayList<>();
         ArrayList<ArrayList<Character>> tempBoard = new ArrayList<>();
         ArrayList<Boolean> isUsed = new ArrayList<>();
+        ArrayList<Character> characters = new ArrayList<>();
         int N = 0;
         int M = 0;
         int P = 0;
@@ -250,11 +251,11 @@ public class functions {
             }
             
             //INPUT PIECES
-            int x = 0;
+            int x = 0;                
             int y = 0;
-            char currentChar = ' ';
-
-            while (fileScanner.hasNextLine()) {
+            char currentChar = ' ';                                                                                                                                                                          
+                        
+            while (fileScanner.hasNextLine()) {                          
                 line = fileScanner.nextLine(); 
                 lineArray = line.toCharArray();
                 
@@ -266,6 +267,7 @@ public class functions {
                     if (!currentPiece.isEmpty()) {
                         pieces.add(currentPiece);
                         isUsed.add(false);
+                        characters.add(currentChar);
                     }
                     currentPiece = new ArrayList<>();
                     y = 0;
@@ -286,6 +288,7 @@ public class functions {
             }
             pieces.add(currentPiece);
             isUsed.add(false);
+            characters.add(currentChar);
             fileScanner.close();
             
         } catch (FileNotFoundException e) {
@@ -313,9 +316,9 @@ public class functions {
                 }
             }
         }
-        
+
         AtomicInteger steps = new AtomicInteger(0);
-        boolean solved = solvePuzzle(pieces, board, isUsed, 0, 0, steps);
+        boolean solved = solvePuzzle(characters, pieces, board, isUsed, 0, 0, steps);
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1_000_000;;
         totalSteps[0] = steps.get();

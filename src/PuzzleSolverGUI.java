@@ -8,7 +8,7 @@ public class PuzzleSolverGUI extends JFrame {
     private File selectedFile;
     private JLabel stepLabel, timeLabel;
     private JEditorPane boardDisplay;
-    private String lastSolution = ""; // Stores last solved board
+    private String lastSolution = ""; 
 
     public PuzzleSolverGUI() {
         setTitle("Puzzle Solver by Bob Kunanda");
