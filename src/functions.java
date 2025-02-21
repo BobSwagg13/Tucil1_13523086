@@ -320,7 +320,7 @@ public class functions {
         AtomicInteger steps = new AtomicInteger(0);
         boolean solved = solvePuzzle(characters, pieces, board, isUsed, 0, 0, steps);
         long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1_000_000;;
+        long duration = (endTime - startTime) / 1_000_000;
         totalSteps[0] = steps.get();
         runtime[0] = (int) duration;
         if(solved)  {

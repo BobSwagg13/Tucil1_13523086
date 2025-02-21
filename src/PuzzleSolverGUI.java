@@ -155,7 +155,7 @@ public class PuzzleSolverGUI extends JFrame {
         }
 
         try {
-            File solutionsDir = new File("solutions");
+            File solutionsDir = new File("test/solutions");
             if (!solutionsDir.exists()) {
                 solutionsDir.mkdir();
             }
