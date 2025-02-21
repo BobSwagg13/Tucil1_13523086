@@ -5,17 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class functions {
-    public static boolean isFull(char[][] board) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == ' ') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public static void rotate(ArrayList<ArrayList<Integer>> coordinates) {
         for (int i = 0; i < coordinates.size(); i++) {
             int x = coordinates.get(i).get(0);
@@ -28,33 +17,14 @@ public class functions {
     public static String printBoard(char[][] board) {
         StringBuilder result = new StringBuilder();
         String RESET = "\033[0m"; 
-        String[] COLORS = { 
-            "\033[31m", 
-            "\033[32m", 
-            "\033[33m", 
-            "\033[34m", 
-            "\033[35m", 
-            "\033[36m", 
-            "\033[37m", 
-            "\033[90m", 
-            "\033[91m", 
-            "\033[92m", 
-            "\033[93m", 
-            "\033[94m", 
-            "\033[95m", 
-            "\033[96m", 
-            "\033[97m", 
-            "\033[1;3;31m",  
-            "\033[1;3;32m", 
-            "\033[1;3;33m", 
-            "\033[1;3;34m",  
-            "\033[1;3;35m",  
-            "\033[1;3;36m",  
-            "\033[1;3;37m", 
-            "\033[1;3;90m",  
-            "\033[1;3;91m", 
-            "\033[1;3;92m",  
-            "\033[1;3;93m"  
+        String[] COLORS = 
+        {   "\033[31m", "\033[32m", "\033[33m", "\033[34m", 
+            "\033[35m", "\033[36m", "\033[37m", "\033[90m", 
+            "\033[91m", "\033[92m", "\033[93m", "\033[94m", 
+            "\033[95m", "\033[96m", "\033[97m", "\033[1;3;31m",  
+            "\033[1;3;32m", "\033[1;3;33m", "\033[1;3;34m",  "\033[1;3;35m",  
+            "\033[1;3;36m",  "\033[1;3;37m", "\033[1;3;90m",  "\033[1;3;91m", 
+            "\033[1;3;92m",  "\033[1;3;93m"  
         };
     
         for (int i = 0; i < board.length; i++) {

@@ -31,7 +31,7 @@ public class PuzzleSolverGUI extends JFrame {
         // Save Button
         saveButton = new JButton("Save Solution");
         saveButton.setFont(new Font("Arial", Font.BOLD, 16));
-        saveButton.setEnabled(false); // Disabled until a solution is found
+        saveButton.setEnabled(false); 
         saveButton.addActionListener(e -> saveSolution());
 
         // Text Area for Output
@@ -40,7 +40,7 @@ public class PuzzleSolverGUI extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        // Board Display (JEditorPane for HTML formatting)
+        // Board Display
         boardDisplay = new JEditorPane();
         boardDisplay.setContentType("text/html");
         boardDisplay.setEditable(false);
