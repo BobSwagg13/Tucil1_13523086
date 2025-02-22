@@ -13,7 +13,7 @@ Puzzle Solver is a **Java Swing**-based program designed to solve puzzles based 
 ### **2.2. Installation**
 1. **Download and Install JDK** *(If not installed yet)*
    - Download JDK from [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) or [OpenJDK](https://openjdk.org/)
-   - Add  **Java to PATH** (opsional jika belum dikonfigurasi)
+   - Add  **Java to PATH**
 ---
 
 ## **3. How to Compile the Program**
