@@ -52,7 +52,7 @@ java -cp bin src.PuzzleSolverGUI
 
 ## **5. Author / Creator Information**
 - **Nama:** Bob Kunanda
-- **Email:** [bobkunadna@gmail.com](mailto:bobkunadna@gmail.com) 
+- **Email:** [bobkunanda@gmail.com](mailto:bobkunanda@gmail.com) 
 - **NIM:** 13523086 
 
 
