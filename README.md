@@ -3,6 +3,8 @@
 ## **1. Program Overview**
 Puzzle Solver is a **Java Swing**-based program designed to solve puzzles based on input from a text file. This program uses a **backtracking algorithm** to find solutions for the given puzzle. The solution will be displayed in a graphical user interface (GUI) and can be saved as a **.txt** file.
 
+![IQ PUZZLER PRO](https://d32bxxnq6qs937.cloudfront.net/sites/default/files/smartgames_IQ_Puzzler_pro_STEP3.jpg)
+
 ---
 
 ## **2. Program Requirements and Installation**
